@@ -2,9 +2,8 @@
 
 #ifdef PX_PLATFORM_WINDOWS
 extern Phoenix::Application* Phoenix::CreateApplication();
-int main(int argc, char** argv) {
-	std::string test = "Test";
-	Phoenix::Log::ERROR(test);
+int main(int argc, char** argv) { 
+	Phoenix::Log::Init();
 	auto app = Phoenix::CreateApplication();
 	app->Run();
 	delete app;
