@@ -9,3 +9,5 @@
 #else
 	#error Phoenix Engine doesn't support this OS.
 #endif
+
+#define BIT(x) (1 << x)

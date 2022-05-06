@@ -97,6 +97,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Phoenix\Events\Event.h" />
     <ClInclude Include="src\Phoenix.h" />
     <ClInclude Include="src\Phoenix\Application.h" />
     <ClInclude Include="src\Phoenix\Core.h" />

@@ -5,6 +5,8 @@
 #include <cstring>
 #include <iostream>
 #include <Windows.h>
+#include <ctime>
+#include <iomanip>
 
 namespace Phoenix {
 	class PX_API Log

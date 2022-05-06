@@ -19,6 +19,7 @@
     <ClInclude Include="src\Phoenix\Log.h">
       <Filter>Phoenix</Filter>
     </ClInclude>
+    <ClInclude Include="src\Phoenix\Events\Event.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Phoenix\Application.cpp">
