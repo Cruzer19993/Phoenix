@@ -28,5 +28,6 @@
     <ClCompile Include="src\Phoenix\Log.cpp">
       <Filter>Phoenix</Filter>
     </ClCompile>
+    <ClCompile Include="src\Phoenix\Events\Event.cpp" />
   </ItemGroup>
 </Project>
