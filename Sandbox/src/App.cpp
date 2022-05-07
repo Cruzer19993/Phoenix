@@ -7,7 +7,7 @@ public:
 	~SandboxApp() {
 	}
 	void OnEvent(const Phoenix::Event & e) {
-		if(e.GetCategory() == Phoenix::EventCategoryMouseButton)
+		if(e.IsCategory(Phoenix::EventCategoryKeyboard))
 		Phoenix::Log::Debug("Detected an event, nice.");
 	}
 };

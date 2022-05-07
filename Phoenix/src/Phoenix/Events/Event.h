@@ -25,10 +25,7 @@ namespace Phoenix {
 		virtual const char* GetName() const = 0;
 		virtual int GetCategory() const = 0;
 		virtual const char* ToString() const { return GetName(); }
-
-		bool IsCategory(EventCategory cat) {
-			return GetCategory() & cat;
-		}
+		bool IsCategory(EventCategory cat) const { return GetCategory() & cat;}
 	protected:
 		bool m_EventHandled = false;
 	};
