@@ -20,6 +20,7 @@
       <Filter>Phoenix</Filter>
     </ClInclude>
     <ClInclude Include="src\Phoenix\Events\Event.h" />
+    <ClInclude Include="src\Phoenix\Events\KeyEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Phoenix\Application.cpp">

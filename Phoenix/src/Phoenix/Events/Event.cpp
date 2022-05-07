@@ -2,43 +2,64 @@
 #include "../Log.h"
 
 namespace Phoenix {
-	IEventHandler* _nextHandler;
 	EventDispatcher* EventDispatcher::singleton;
+	IEventHandler* start;
+	IEventHandler* end;
 	EventDispatcher* EventDispatcher::GetInstance() {
-		if (singleton == nullptr) {
-			singleton = new EventDispatcher();
+		if (EventDispatcher::singleton == nullptr) {
+			EventDispatcher::singleton = new EventDispatcher();
 
-		return singleton;
+		return EventDispatcher::singleton;
 		}
 	}
 	EventDispatcher::EventDispatcher() {
+		EventDispatcher::start = nullptr;
+		EventDispatcher::end = nullptr;
 		EventDispatcher::listenersCount = 0;
-		EventDispatcher::listeners_list_front = nullptr;
 		Phoenix::Log::Info("Event Dispatcher singleton created");
 	}
 
 	void EventDispatcher::RegisterHandler(Phoenix::IEventHandler *device) {
-		device->SetNextHandler(EventDispatcher::listeners_list_front);
-		EventDispatcher::listeners_list_front = device;
+		if (EventDispatcher::listenersCount == 0) {
+			EventDispatcher::start = device;
+			EventDispatcher::end = device;
+			device->SetNextHandler(nullptr);
+		}
+		else if (EventDispatcher::listenersCount == 1) {
+			EventDispatcher::end == device;
+			EventDispatcher::start->SetNextHandler(device);
+		}
+		else {
+			EventDispatcher::end->SetNextHandler(device);
+			EventDispatcher::end = device;
+		}
 		EventDispatcher::listenersCount++;
+		Phoenix::Log::Info("Registered a new listener.");
 	}
 
-	void EventDispatcher::PublishEvent(Event* e) {
-		IEventHandler* currentDevice = EventDispatcher::listeners_list_front;
-		for (; currentDevice; currentDevice = currentDevice->GetNextHandler()) {
-			if (currentDevice != currentDevice->GetNextHandler())
-				currentDevice->OnEvent(*e);
+	void EventDispatcher::PublishEvent(const Event & e) {
+		//Phoenix::Log::Debug("" + EventDispatcher::GetInstance()->GetListenersCount());
+		if (EventDispatcher::singleton->listenersCount != 0) {
+			IEventHandler* currentDevice = EventDispatcher::singleton->start;
+			for (; currentDevice; currentDevice = currentDevice->GetNextHandler()) {
+				if (currentDevice != currentDevice->GetNextHandler())
+					currentDevice->OnEvent(e);
+			}
 		}
 	}
 
 	void IEventHandler::SetNextHandler(IEventHandler* next) {
-		_nextHandler = next;
+		_next = next;
 	}
 	IEventHandler* IEventHandler::GetNextHandler(void) {
-		return _nextHandler;
+		return _next;
 	}
-	IEventHandler::IEventHandler() : _nextHandler(0) {
+	IEventHandler::IEventHandler() {
 		//Register the handler automatically.
 		EventDispatcher::GetInstance()->RegisterHandler(this);
+	}
+	
+	void IEventHandler::PushEvent(const Event& e) {
+		EventDispatcher::GetInstance()->PublishEvent(e);
 	}
 }

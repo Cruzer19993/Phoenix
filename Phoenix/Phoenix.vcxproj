@@ -102,6 +102,7 @@
     <ClInclude Include="src\Phoenix\Application.h" />
     <ClInclude Include="src\Phoenix\Core.h" />
     <ClInclude Include="src\Phoenix\EntryPoint.h" />
+    <ClInclude Include="src\Phoenix\Events\KeyEvent.h" />
     <ClInclude Include="src\Phoenix\Log.h" />
   </ItemGroup>
   <ItemGroup>

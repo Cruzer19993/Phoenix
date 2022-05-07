@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "Events\Event.h"
-#include <chrono>
+#include "Events/KeyEvent.h"
 
 namespace Phoenix {
 	Application::Application()
@@ -11,6 +11,8 @@ namespace Phoenix {
 	}
 
 	void Application::Run() {
+		Phoenix::KeyPressedEvent t(Phoenix::KeyCode::A);
+		Phoenix::EventDispatcher::GetInstance()->PublishEvent(t);
 		while (true);
 	}
 }

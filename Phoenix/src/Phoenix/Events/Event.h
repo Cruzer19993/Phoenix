@@ -26,7 +26,7 @@ namespace Phoenix {
 		virtual int GetCategory() const = 0;
 		virtual const char* ToString() const { return GetName(); }
 
-		inline bool IsCategory(EventCategory cat) {
+		bool IsCategory(EventCategory cat) {
 			return GetCategory() & cat;
 		}
 	protected:
@@ -36,12 +36,13 @@ namespace Phoenix {
 	class PX_API IEventHandler {
 	public:
 		virtual void OnEvent(const Event & e) = 0;
-		virtual void PushEvent(const Event & e);
 		void SetNextHandler(IEventHandler* next);
 		IEventHandler* GetNextHandler(void);
 		IEventHandler();
+	protected:
+		virtual void PushEvent(const Event& e);
 	private:
-		IEventHandler* _nextHandler;
+		IEventHandler* _next;
 	};
 
 	class PX_API EventDispatcher {
@@ -49,13 +50,13 @@ namespace Phoenix {
 		EventDispatcher(EventDispatcher& other) = delete;
 		void operator =(const EventDispatcher&) = delete;
 		void RegisterHandler(IEventHandler* device);
-		void PublishEvent(Event* e);
+		void PublishEvent(const Event & e);
 		static EventDispatcher* GetInstance();
-
-	protected:
+	private:
 		EventDispatcher();
 		static EventDispatcher* singleton;
-		IEventHandler* listeners_list_front;
+		IEventHandler* start;
+		IEventHandler* end;
 		int listenersCount; 
 	};
 }

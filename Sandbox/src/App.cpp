@@ -1,10 +1,14 @@
 #include <Phoenix.h>
 //Create a new application
-class SandboxApp : public Phoenix::Application {
+class SandboxApp : public Phoenix::Application, Phoenix::IEventHandler {
 public:
 	SandboxApp() {
 	}
 	~SandboxApp() {
+	}
+	void OnEvent(const Phoenix::Event & e) {
+		if(e.GetCategory() == Phoenix::EventCategoryMouseButton)
+		Phoenix::Log::Debug("Detected an event, nice.");
 	}
 };
 
