@@ -1,23 +1,16 @@
 #pragma once
-
-#include "Core.h"
-#include <stdlib.h>
-#include <cstring>
-#include <iostream>
-#include <Windows.h>
-#include <ctime>
-#include <iomanip>
+#include "PxPCH.h"
+#include "Phoenix/Core.h"
 
 namespace Phoenix {
-	class PX_API Log
-	{
+	class PX_API Log{
 	public:
 		static void Init();
-		static void Fatal(const char* str);
-		static void Error(const char* str);
-		static void Warn(const char* str);
-		static void Info(const char* str);
-		static void Debug(const char* str);
+		static void Fatal(std::string str);
+		static void Error(std::string str);
+		static void Warn(std::string str);
+		static void Info(std::string str);
+		static void Debug(std::string str);
 		static HANDLE hConsole;
 	};
 }

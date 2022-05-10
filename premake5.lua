@@ -6,6 +6,12 @@ workspace "Phoenix"
 
     outputdir = "%{cfg.buildcfg}_%{cfg.system}-%{cfg.architecture}"
 
+--Dependencies in assoc. table.
+IncludeDir = {}
+IncludeDir["GLFW"] = "Phoenix/vendor/glfw/include"
+
+
+
 project "Phoenix"
     location "Phoenix"
     kind "SharedLib"
@@ -14,9 +20,29 @@ project "Phoenix"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
 
+    pchheader "PxPCH.h"
+    pchsource "Phoenix/src/PxPCH.cpp"
+
     files{
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs{
+        "Phoenix/src",
+        "%{IncludeDir.GLFW}"
+    }
+
+    libdirs{
+        "Phoenix/vendor/glfw/libs"
+    }
+
+    links{
+        "glfw3.lib",
+        "opengl32.lib",
+        "user32.lib",
+        "gdi32.lib",
+        "shell32.lib"
     }
 
     filter "system:windows"
@@ -27,6 +53,8 @@ project "Phoenix"
         defines{
             "PX_PLATFORM_WINDOWS",
             "PX_BUILD_DLL",
+            "PX_ENABLE_ASSERTS",
+            "PX_API",
             "_WINDLL"
         }
 
@@ -37,10 +65,16 @@ project "Phoenix"
     filter "configurations:Debug"
         defines "PX_DEBUG"    
         symbols "On"
+        buildoptions{
+            "/MDd"
+        }
 
     filter "configurations:Release"
         defines "PX_RELEASE"
         optimize "On"
+        buildoptions{
+            "/MD"
+        }
 
 project "Sandbox"
     location "Sandbox"
@@ -63,6 +97,7 @@ project "Sandbox"
         defines{
             "PX_PLATFORM_WINDOWS",
             "PX_BUILD_DLL",
+            "PX_API",
             "_WINDLL"
         }
 
