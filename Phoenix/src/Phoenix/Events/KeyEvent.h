@@ -12,13 +12,13 @@ namespace Phoenix {
 		virtual EventType GetEventType() const {
 			return Phoenix::EventType::KeyPressed;
 		};
-		virtual const char* GetName() const {
+		virtual const std::string GetName() const {
 			return "Key Pressed Event, KeyCode:" + m_keyPressed;
 		};
 		virtual int GetCategory() const {
 			return Phoenix::EventCategory::EventCategoryKeyboard;
 		};
-		virtual const char* ToString() const { return GetName(); }
+		virtual const std::string ToString() const { return GetName(); }
 
 		KeyPressedEvent(KeyCode key) {
 			m_keyPressed = key;
@@ -32,13 +32,13 @@ namespace Phoenix {
 		virtual EventType GetEventType() const {
 			return Phoenix::EventType::KeyReleased;
 		};
-		virtual const char* GetName() const {
+		virtual const std::string GetName() const {
 			return "Key Released Event, KeyCode:" + m_keyReleased;
 		};
 		virtual int GetCategory() const {
 			return Phoenix::EventCategory::EventCategoryKeyboard;
 		};
-		virtual const char* ToString() const { return GetName(); }
+		virtual const std::string ToString() const { return GetName(); }
 
 		KeyReleasedEvent(KeyCode key) {
 			m_keyReleased = key;

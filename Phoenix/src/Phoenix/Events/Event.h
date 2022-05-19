@@ -5,7 +5,7 @@
 namespace Phoenix {
 	enum EventType {
 		None = 0,
-		WindowResize, WindowsMinimize, WindowMaximize, WindowMove,
+		WindowResize, WindowsMinimize, WindowMaximize, WindowMove, WindowClose,
 		KeyPressed, KeyReleased,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
 		AppTick, AppUpdate, AppRender
@@ -23,9 +23,9 @@ namespace Phoenix {
 	class PX_API Event {
 	public:
 		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0;
+		virtual const std::string GetName() const = 0;
 		virtual int GetCategory() const = 0;
-		virtual const char* ToString() const { return GetName(); }
+		virtual const std::string ToString() const { return GetName(); }
 		bool IsCategory(EventCategory cat) const { return GetCategory() & cat;}
 	protected:
 		bool m_EventHandled = false;

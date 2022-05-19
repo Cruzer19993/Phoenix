@@ -6,5 +6,6 @@
 #include "Phoenix/Log.h"
 #include "Phoenix/Events/Event.h"
 #include "Phoenix/Events/KeyEvent.h"
+#include "Phoenix/Events/WindowEvent.h"
 #include "Phoenix/Window.h"
 #include <string.h>

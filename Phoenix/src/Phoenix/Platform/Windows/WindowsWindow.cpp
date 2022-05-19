@@ -1,5 +1,7 @@
 #include "PxPCH.h"
 #include "WindowsWindow.h"
+#include "Phoenix/Core.h"
+#include "Phoenix/Events/WindowEvent.h"
 
 namespace Phoenix {
 	static bool s_GLFWInitialized = false; //is GLFW initialized?
@@ -34,6 +36,22 @@ namespace Phoenix {
 		glfwMakeContextCurrent(m_window);
 		glfwSetWindowUserPointer(m_window, &m_Data);
 		SetVSync(true);
+
+		//Set glfw callbacks
+		glfwSetWindowSizeCallback(m_window, [](GLFWwindow * window, int width, int height) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowResizeEvent event(width, height);
+			data.Width = width;
+			data.Height = height;
+			data.EventCallback(event);
+		});
+
+		glfwSetWindowCloseCallback(m_window, [](GLFWwindow * window){
+			WindowCloseEvent event;
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			data.EventCallback(event);
+		});
+
 	}
 
 	void WindowsWindow::Shutdown() {

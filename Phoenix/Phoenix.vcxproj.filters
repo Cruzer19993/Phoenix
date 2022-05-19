@@ -41,6 +41,8 @@
       <Filter>Phoenix</Filter>
     </ClInclude>
     <ClInclude Include="src\PxPCH.h" />
+    <ClInclude Include="src\Phoenix\Events\MouseEvent.h" />
+    <ClInclude Include="src\Phoenix\Events\WindowEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Phoenix\Application.cpp">

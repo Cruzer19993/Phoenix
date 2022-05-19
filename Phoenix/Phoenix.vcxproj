@@ -113,6 +113,8 @@
     <ClInclude Include="src\Phoenix\EntryPoint.h" />
     <ClInclude Include="src\Phoenix\Events\Event.h" />
     <ClInclude Include="src\Phoenix\Events\KeyEvent.h" />
+    <ClInclude Include="src\Phoenix\Events\MouseEvent.h" />
+    <ClInclude Include="src\Phoenix\Events\WindowEvent.h" />
     <ClInclude Include="src\Phoenix\Log.h" />
     <ClInclude Include="src\Phoenix\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Phoenix\Window.h" />
