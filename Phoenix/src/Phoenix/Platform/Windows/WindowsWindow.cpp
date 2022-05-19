@@ -2,6 +2,7 @@
 #include "WindowsWindow.h"
 #include "Phoenix/Core.h"
 #include "Phoenix/Events/WindowEvent.h"
+#include "Phoenix/Events/MouseEvent.h"
 
 namespace Phoenix {
 	static bool s_GLFWInitialized = false; //is GLFW initialized?
@@ -52,6 +53,11 @@ namespace Phoenix {
 			data.EventCallback(event);
 		});
 
+		glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xpos, double ypos) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			MouseMovedEvent event(xpos,ypos);
+			data.EventCallback(event);
+		});
 	}
 
 	void WindowsWindow::Shutdown() {

@@ -33,4 +33,32 @@ namespace Phoenix {
 	private:
 		MouseButton m_buttonPressed;
 	};
+
+	class PX_API MouseMovedEvent : public Phoenix::Event {
+	public:
+		virtual EventType GetEventType() const {
+			return Phoenix::EventType::MouseMoved;
+		};
+		virtual const std::string GetName() const {
+			std::stringstream ss;
+			ss << m_XPos << "|" << m_YPos;
+			std::string msg = "Mouse Move Event, Position X/Y";
+			msg.append(ss.str());
+			return msg;
+		}
+
+		virtual int GetCategory() const {
+			return Phoenix::EventCategory::EventCategoryMouse;
+		};
+		virtual const std::string ToString() const {
+			return GetName();
+		};
+		MouseMovedEvent(int x, int y) {
+			m_XPos = x;
+			m_YPos = y;
+		}
+	private:
+		int m_XPos;
+		int m_YPos;
+	};
 }

@@ -19,12 +19,21 @@ namespace Phoenix {
 		if (e.IsCategory(Phoenix::EventCategory::EventCategoryApplication))
 			if (e.GetEventType() == Phoenix::EventType::WindowClose)
 				OnWindowClose();
+		if(e.IsCategory(Phoenix::EventCategory::EventCategoryMouse))
+			if (e.GetEventType() == Phoenix::EventType::MouseMoved) {
+				MouseMovedEvent* tempe = dynamic_cast<MouseMovedEvent*>(&e);
+				OnMouseMove(*tempe);
+			}
 	}
 
 	void Application::Run() {
 		while (m_Running) {
 			m_Window->OnUpdate();
 		}
+	}
+
+	void Application::OnMouseMove(MouseMovedEvent& e) {
+		Phoenix::Log::Debug(e.ToString());
 	}
 
 	bool Application::OnWindowClose() {

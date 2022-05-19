@@ -13,7 +13,6 @@ namespace Phoenix {
 			ss << m_Width << "|" << m_Height;
 			std::string msg = "Window Resize Event: New Width/Height: ";
 			msg.append(ss.str());
-			Phoenix::Log::Debug(msg);
 			return msg;
 		};
 		virtual int GetCategory() const {
