@@ -8,4 +8,6 @@
 #include "Phoenix/Events/KeyEvent.h"
 #include "Phoenix/Events/WindowEvent.h"
 #include "Phoenix/Window.h"
+#include "Phoenix/Layers/Layer.h"
+#include "Phoenix/Layers/LayerStack.h"
 #include <string.h>

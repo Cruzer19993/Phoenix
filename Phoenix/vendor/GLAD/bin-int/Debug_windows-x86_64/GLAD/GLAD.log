@@ -1,0 +1,4 @@
+﻿cl : wiersz polecenia warning D9002: ignorowanie nieznanej opcji „-std=c11”
+cl : wiersz polecenia warning D9002: ignorowanie nieznanej opcji „-lgdi32”
+  glad.c
+  GLAD.vcxproj -> D:\Dev\Phoenix\Phoenix\vendor\GLAD\bin\Debug_windows-x86_64\GLAD\GLAD.lib

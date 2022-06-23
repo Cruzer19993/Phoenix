@@ -9,8 +9,10 @@ workspace "Phoenix"
 --Dependencies in assoc. table.
 IncludeDir = {}
 IncludeDir["GLFW"] = "Phoenix/vendor/glfw/include"
+IncludeDir["imGUI"] = "Phoenix/vendor/imGUI/"
+IncludeDir["GLAD"] = "Phoenix/vendor/GLAD/include"
 
-
+include "Phoenix/vendor/GLAD"
 
 project "Phoenix"
     location "Phoenix"
@@ -30,7 +32,9 @@ project "Phoenix"
 
     includedirs{
         "Phoenix/src",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.imGUI}",
+        "%{IncludeDir.GLAD}"
     }
 
     libdirs{
@@ -38,11 +42,12 @@ project "Phoenix"
     }
 
     links{
+        "GLAD",
         "glfw3.lib",
         "opengl32.lib",
         "user32.lib",
         "gdi32.lib",
-        "shell32.lib"
+        "shell32.lib",
     }
 
     filter "system:windows"
@@ -55,7 +60,8 @@ project "Phoenix"
             "PX_BUILD_DLL",
             "PX_ENABLE_ASSERTS",
             "PX_API",
-            "_WINDLL"
+            "_WINDLL",
+            "GLFW_INCLUDE_NONE"
         }
 
     postbuildcommands{

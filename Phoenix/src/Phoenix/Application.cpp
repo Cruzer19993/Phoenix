@@ -1,7 +1,8 @@
 #include "PxPCH.h"
 #include "Application.h"
 #include "Events\Event.h"
-#include "Events/KeyEvent.h"
+#include "Events/KeyEvent.h" 
+#include "GLFW/glfw3.h"
 
 namespace Phoenix {
 #define BIND_EVENT(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -19,11 +20,18 @@ namespace Phoenix {
 		if (e.IsCategory(Phoenix::EventCategory::EventCategoryApplication))
 			if (e.GetEventType() == Phoenix::EventType::WindowClose)
 				OnWindowClose();
-		if(e.IsCategory(Phoenix::EventCategory::EventCategoryMouse))
+		if (e.IsCategory(Phoenix::EventCategory::EventCategoryMouse)) {
 			if (e.GetEventType() == Phoenix::EventType::MouseMoved) {
 				MouseMovedEvent* tempe = dynamic_cast<MouseMovedEvent*>(&e);
 				OnMouseMove(*tempe);
 			}
+		}
+		if (e.IsCategory(Phoenix::EventCategory::EventCategoryKeyboard)) {
+			if (e.GetEventType() == Phoenix::EventType::KeyPressed) {
+				KeyPressedEvent* tempe = dynamic_cast<KeyPressedEvent*>(&e);
+				Phoenix::Log::Debug(tempe->ToString());
+			}
+		}
 	}
 
 	void Application::Run() {
@@ -33,7 +41,7 @@ namespace Phoenix {
 	}
 
 	void Application::OnMouseMove(MouseMovedEvent& e) {
-		Phoenix::Log::Debug(e.ToString());
+		//Phoenix::Log::Debug(e.ToString());
 	}
 
 	bool Application::OnWindowClose() {

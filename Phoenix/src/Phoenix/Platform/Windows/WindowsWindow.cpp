@@ -3,6 +3,9 @@
 #include "Phoenix/Core.h"
 #include "Phoenix/Events/WindowEvent.h"
 #include "Phoenix/Events/MouseEvent.h"
+#include "Phoenix/Events/KeyEvent.h"
+#include "Phoenix/Log.h"
+#include "glad/glad.h"
 
 namespace Phoenix {
 	static bool s_GLFWInitialized = false; //is GLFW initialized?
@@ -35,8 +38,17 @@ namespace Phoenix {
 
 		m_window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_window);
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+			Phoenix::Log::Fatal("Failed to initialize GLAD");
+		}
+		else {
+			Phoenix::Log::Info("Initialized GLAD");
+		}
 		glfwSetWindowUserPointer(m_window, &m_Data);
 		SetVSync(true);
+
+		//ImGui::CreateContext();
+		//ImGui_ImplGlfw_InitForOpenGL(m_window, true);
 
 		//Set glfw callbacks
 		glfwSetWindowSizeCallback(m_window, [](GLFWwindow * window, int width, int height) {
@@ -58,6 +70,46 @@ namespace Phoenix {
 			MouseMovedEvent event(xpos,ypos);
 			data.EventCallback(event);
 		});
+		glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			switch (action) {
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent	event(key);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent event(key);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent event(key, 1);
+					data.EventCallback(event);
+					break;
+				}
+			}
+		});
+		glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			switch (action) {
+				case GLFW_PRESS:
+				{
+					MousePressedEvent event(button);
+					data.EventCallback(event);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					MouseReleasedEvent event(button);
+					data.EventCallback(event);
+					break;
+				}
+			}
+		});
 	}
 
 	void WindowsWindow::Shutdown() {
@@ -65,6 +117,10 @@ namespace Phoenix {
 	}
 
 	void WindowsWindow::OnUpdate() {
+		//Test UI
+		//ImGui::Begin("Test Window");
+		//ImGui::End();
+		//ImGui::NewFrame();
 		glfwPollEvents();
 		glfwSwapBuffers(m_window);
 	}
